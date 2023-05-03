@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>HDB Mortgage Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    function calculateRepayment() {
+      let housePrice = parseFloat(document.getElementById("housePrice").value);
+      let downpayment = parseFloat(document.getElementById("downpayment").value);
+      let principal = housePrice - downpayment;
+      let interestRate = parseFloat(document.getElementById("interestRate").value) / 100 / 12;
+      let loanTenure = parseInt(document.getElementById("loanTenure").value) * 12;
+
+      let monthlyRepayment = (principal * interestRate * ((1 + interestRate) ** loanTenure)) / (((1 + interestRate) ** loanTenure) - 1);
+
+      document.getElementById("result").innerHTML = "Monthly repayment amount: $" + monthlyRepayment.toFixed(2);
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>HDB Mortgage Calculator</h1>
+    <div class="form">
+      <div class="form-group">
+        <label for="housePrice">House price:</label>
+        <input type="number" id="housePrice" required>
+      </div>
+      <div class="form-group">
+        <label for="downpayment">Downpayment amount:</label>
+        <input type="number" id="downpayment" required>
+      </div>
+      <div class="form-group">
+        <label for="interestRate">Interest rate (% p.a.) [Current HDB Loan Interest Rate: 2.6%]:</label>
+        <input type="number" id="interestRate" value="2.6" required>
+      </div>
+      <div class="form-group">
+        <label for="loanTenure">Loan tenure (years):</label>
+        <input type="number" id="loanTenure" required>
+      </div>
+      <button class="btn" onclick="calculateRepayment()">Calculate</button>
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+</body>
+
+</html>
